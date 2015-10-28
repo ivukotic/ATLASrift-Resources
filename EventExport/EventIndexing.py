@@ -15,6 +15,7 @@ del data['run number']
 ts=[]
 for t in data['Tracks']:
     ts.append(data['Tracks'][t])
+
 del data['Tracks']
 data['tracks']=ts
 data['timestamp'] = datetime.now()
@@ -33,8 +34,8 @@ print(res.content)
 es = Elasticsearch([{'host':'cl-analytics.mwt2.org', 'port':9200}])
 
 
-res = es.search(index=ind, body={"query": {"match_all": {}}})
-print("Got %d Hits." % res['hits']['total'])
+# res = es.search(index=ind, body={"query": {"match_all": {}}})
+# print("Got %d Hits." % res['hits']['total'])
 
-res = es.index(index=ind, doc_type='event', body=doc)
+res = es.index(index=ind, doc_type='event', body=data)
 print(res['created'])
