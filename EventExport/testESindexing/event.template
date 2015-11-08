@@ -1,0 +1,93 @@
+curl -XDELETE "http://cl-analytics.mwt2.org:9200/atlasrift_events"
+
+curl -XPOST "http://cl-analytics.mwt2.org:9200/_template/events" -d '
+{
+    "template" : "atlasrift_events*",
+    "settings" : {
+        "number_of_shards" : 5,
+        "number_of_replicas" : 1
+        },
+    "mappings": {
+        "event": {
+            "_source" : { "enabled" : true },
+            "properties": {
+                "runnr": {"type": "integer"},
+                "eventnr": {"type": "integer"},
+                "Tracks": {
+                    "type": "nested"
+                    },
+                "Jets":{
+                    "type": "nested"
+                    },
+                "Clusters":{
+                    "type": "nested"
+                    }
+                }
+            }
+        }
+    }'
+  
+  
+  
+    
+curl -XPOST "http://cl-analytics.mwt2.org:9200/atlasrift_events/event" -d '
+{
+  "runnr" : 123,
+  "eventnr" : 1234567,
+  "Tracks" : [
+    {
+      "chi2" : 11.1009,
+      "dof" :  11,
+      "dparams": [-0.877211, -68.7662, -0.592811, 2.3198, -6.98485e-05]
+    },
+    {
+      "chi2":50.9662,
+      "dof":48,
+      "dparams": [0.78621, -67.1428, 2.51282, 2.61265, 4.66695e-05]
+    }
+  ]
+}'
+
+
+curl -XGET "http://cl-analytics.mwt2.org:9200/atlasrift_events/event/_search" -d '
+{
+  "query": {
+    "nested": {
+      "path": "Tracks",
+      "query": {
+        "bool": {
+          "must": [
+            { "match": { "Tracks.chi2": 11.1009 }},
+            { "match": { "Tracks.dof":  11 }} 
+          ]
+        }
+      }
+    }
+  }
+}'
+
+curl -XGET "http://cl-analytics.mwt2.org:9200/atlasrift_events/event/_search" -d '
+{
+  "query": {
+    "nested": {
+      "path": "Tracks",
+      "query": {
+        "bool": {
+          "must": [
+            { "match": { "Tracks.chi2": 11.1009 }},
+            { "match": { "Tracks.dof":  11 }} 
+          ]
+        }
+      }
+    }
+  }
+}'
+
+
+curl -XGET "http://cl-analytics.mwt2.org:9200/atlasrift_events/event/_search" -d '
+{
+  "query": {
+          "match_all" : {}
+      }
+}'
+

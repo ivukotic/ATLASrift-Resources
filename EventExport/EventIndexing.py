@@ -42,7 +42,7 @@ for t in data[elem]:
 
 data['timestamp'] = datetime.now()
 data['description']='A high-mass dijet event. This event was collected in September 2015: the two central high-pT jets have an invariant mass of 8.8 TeV, the highest-pT jet has a pT of 810 GeV, and the subleading jet has a pT of 750 GeV. The missing ET for this event is 60 GeV.'
-pprint(data)
+#pprint(data)
 
 ind="atlasrift_events"
 
