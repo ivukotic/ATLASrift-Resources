@@ -59,5 +59,5 @@ es = Elasticsearch([{'host':'cl-analytics.mwt2.org', 'port':9200}])
 # res = es.search(index=ind, body={"query": {"match_all": {}}})
 # print("Got %d Hits." % res['hits']['total'])
 
-res = es.index(index=ind, id=1, doc_type='event', body=data)
+res = es.index(index=ind, id=0, doc_type='event', body=data)
 print(res['created'])
