@@ -109,12 +109,12 @@ public class EventServer extends HttpServlet {
 		JsonObject Event = new JsonObject();
 		Entity ev=lTemp.get(0);
 		Event.addProperty("runnr", Integer.parseInt((ev.getProperty("runnr")).toString()));
-		Event.addProperty("eventnr", Integer.parseInt((ev.getProperty("runnr")).toString()));
+		Event.addProperty("eventnr", Integer.parseInt((ev.getProperty("eventnr")).toString()));
 		Event.addProperty("description", (ev.getProperty("description")).toString());
 
 		JsonParser jp = new JsonParser();
 		
-		String tp= ((Text) ev.getProperty("xAOD::Type::TrackParticle")).getValue();
+		String tp= ev.getProperty("xAOD::Type::TrackParticle").toString();
 		JsonObject Jtp = null;
 		try {
 			JsonElement root = jp.parse(tp);
@@ -125,7 +125,7 @@ public class EventServer extends HttpServlet {
 		}
 		Event.add("xAOD::Type::TrackParticle", Jtp);
 
-		String j= ((Text) ev.getProperty("xAOD::Type::Jet")).getValue();
+		String j= ev.getProperty("xAOD::Type::Jet").toString();
 		JsonObject Jj = null;
 		try {
 			JsonElement root = jp.parse(j);
@@ -135,8 +135,8 @@ public class EventServer extends HttpServlet {
 			return;
 		}
 		Event.add("xAOD::Type::Jet", Jj);
-		
-		String cc= ((Text) ev.getProperty("xAOD::Type::CaloCluster")).getValue();
+
+		String cc= ev.getProperty("xAOD::Type::CaloCluster").toString();
 		JsonObject Jcc = null;
 		try {
 			JsonElement root = jp.parse(cc);

@@ -49,7 +49,7 @@ public class ATLASriftMonitor extends HttpServlet {
 			return;
 		}
 
-		log.info(jb.toString());
+		log.warning(jb.toString());
 
 		JsonParser jp = new JsonParser();
 		JsonElement root = null;
@@ -59,6 +59,7 @@ public class ATLASriftMonitor extends HttpServlet {
 			res = root.getAsJsonObject();
 		} catch (Exception e) {
 			log.severe("could not parse json.");
+			log.severe("received: "+jb.toString());
 			return;
 		}
 		Entity visit = new Entity("ATLASriftVisits");
@@ -75,6 +76,11 @@ public class ATLASriftMonitor extends HttpServlet {
 		visit.setProperty("SpeachVolume", res.get("SpeachVolume").getAsFloat());
 		visit.setProperty("EffectsVolume", res.get("EffectsVolume").getAsFloat());
 		visit.setProperty("ShowCavern", res.get("ShowCavern").getAsBoolean());
+		visit.setProperty("Language", res.get("Language").getAsString());
+		visit.setProperty("Avatar", res.get("Avatar").getAsString());
+		visit.setProperty("Username", res.get("Username").getAsString());
+		visit.setProperty("Server", res.get("Server").getAsString());
+		visit.setProperty("HostAServer", res.get("HostAServer").getAsBoolean());
 		visit.setProperty("country", req.getHeader("X-AppEngine-Country"));
 		visit.setProperty("region", req.getHeader("X-AppEngine-Region"));
 		visit.setProperty("city", req.getHeader("X-AppEngine-City"));
