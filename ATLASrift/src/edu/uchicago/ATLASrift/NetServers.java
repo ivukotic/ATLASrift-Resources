@@ -2,8 +2,6 @@ package edu.uchicago.ATLASrift;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -84,7 +82,7 @@ public class NetServers extends HttpServlet {
 		ARserver.setIndexedProperty("ip", ipAddress);
 		ARserver.setIndexedProperty("created", currTime);
 		ARserver.setIndexedProperty("clients", 0);
-		ARserver.setIndexedProperty("active", true);
+	//	ARserver.setIndexedProperty("active", true);
 		ARserver.setIndexedProperty("lastheartbeat", currTime);
 		datastore.put(ARserver);
 		return;

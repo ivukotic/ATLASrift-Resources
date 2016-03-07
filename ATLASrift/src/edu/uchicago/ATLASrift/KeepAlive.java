@@ -2,7 +2,6 @@ package edu.uchicago.ATLASrift;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
@@ -12,11 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 
@@ -39,9 +36,9 @@ public class KeepAlive extends HttpServlet {
 		Entity res = null;
 		try {
 			Filter f1 = new Query.FilterPredicate("ip", FilterOperator.EQUAL, ipAddress);
-			Filter f2 = new Query.FilterPredicate("active", FilterOperator.EQUAL, true);
-			Filter cF = CompositeFilterOperator.and(f1, f2);
-			Query q = new Query("ATLASriftServer").setFilter(cF);
+		//	Filter f2 = new Query.FilterPredicate("active", FilterOperator.EQUAL, true);
+		//	Filter cF = CompositeFilterOperator.and(f1, f2);
+			Query q = new Query("ATLASriftServer").setFilter(f1);
 			PreparedQuery pq = datastore.prepare(q);
 			res = pq.asSingleEntity();
 		}catch (TooManyResultsException e){

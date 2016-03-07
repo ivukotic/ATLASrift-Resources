@@ -120,8 +120,8 @@ public class EventServer extends HttpServlet {
 			JsonElement root = jp.parse(tp);
 			Jtp = root.getAsJsonObject();
 		} catch (Exception e) {
-			log.severe("could not parse to json");
-			return;
+			log.severe("could not parse Track to json: "+e.toString());
+	//		return;
 		}
 		Event.add("xAOD::Type::TrackParticle", Jtp);
 
@@ -131,8 +131,8 @@ public class EventServer extends HttpServlet {
 			JsonElement root = jp.parse(j);
 			Jj = root.getAsJsonObject();
 		} catch (Exception e) {
-			log.severe("could not parse to json");
-			return;
+			log.severe("could not parse Jet to json: "+e.toString());
+	//		return;
 		}
 		Event.add("xAOD::Type::Jet", Jj);
 
@@ -142,8 +142,8 @@ public class EventServer extends HttpServlet {
 			JsonElement root = jp.parse(cc);
 			Jcc = root.getAsJsonObject();
 		} catch (Exception e) {
-			log.severe("could not parse to json");
-			return;
+			log.severe("could not parse Calo to json: "+e.toString());
+	//		return;
 		}
 		Event.add("xAOD::Type::CaloCluster", Jcc);
 		
